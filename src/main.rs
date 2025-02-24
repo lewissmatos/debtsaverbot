@@ -32,7 +32,6 @@ async fn main() {
         );
     }
     let bot = Bot::from_env();
-    println!("{}", bot.token());
 
     Command::repl(bot, answer).await;
 }

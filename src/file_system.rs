@@ -22,8 +22,6 @@ pub fn get_history() -> Result<String> {
 }
 
 pub fn get_total() -> Result<f64> {
-    let mut total = 0.0;
-
     let history = get_history().unwrap_or_else(|_| String::new());
 
     let values = history
@@ -31,7 +29,7 @@ pub fn get_total() -> Result<f64> {
         .map(|l| l.trim().parse::<f64>().unwrap())
         .collect::<Vec<f64>>();
 
-    total = values.iter().sum::<f64>();
+    let total: f64 = values.iter().sum::<f64>();
 
     let mut file = OpenOptions::new()
         .write(true) // Open the file for writing
